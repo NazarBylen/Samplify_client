@@ -1,0 +1,43 @@
+.home-root {
+  min-height: 100vh;
+  height: auto;
+  background: linear-gradient(#3e065f, #000000);
+}
+
+.company-name {
+  font-family: 'Arial-Black', sans-serif;
+  font-size: 90px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 50px 20px 10px;
+  justify-content: center;
+}
+
+.promo-text {
+  font-family: 'Arial-Black', sans-serif;
+  color: #d0d0d0;
+  justify-content: center;
+}
+
+.charts {
+  font-family: 'Arial-Black', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 50px 20px 10px;
+  justify-content: center;
+}
+
+.promo-music {
+  padding: 50px;
+}

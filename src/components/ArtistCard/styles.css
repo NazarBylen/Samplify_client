@@ -1,0 +1,59 @@
+.back-card {
+    width: 1000px;
+    height: 100px;
+    background-color: #282c34;
+    opacity: 0.6;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    border-radius: 20px;
+    margin: 20px;
+    transition: 0.2s;
+}
+
+.back-card:hover {
+    background: rgba(38, 38, 38, 0.5);
+    opacity: 1;
+}
+
+.wrap-artist {
+    display: flex;
+    justify-content: left;
+    padding: 0 10px;
+}
+
+.img-card {
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.text-card {
+    font-family: 'Dazed and Condensed Bold', sans-serif;
+    color: #d0d0d0;
+    font-size: 30px;
+    margin: 10px;
+    font-weight: normal;
+}
+
+.wrap-btn {
+    display: flex;
+    justify-content: right;
+}
+
+.artis-profile-btn {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    border: none;
+    background-color: #7e2ee0;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 20px;
+}
+
+.artis-profile-btn:hover {
+    background-color: #431377;
+}

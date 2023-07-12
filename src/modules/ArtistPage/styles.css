@@ -1,0 +1,70 @@
+.artist-page-root {
+    min-height: 100vh;
+    height: auto;
+    background: linear-gradient(#3e065f, #000000);
+}
+
+.artist-profile {
+    display: flex;
+    justify-content: left;
+    gap: 50px;
+}
+
+.artist-picture {
+    height: 300px;
+    width: 300px;
+    margin: 50px 50px 50px 70px;
+    border-radius: 2000px;
+}
+
+.artist-name {
+    font-family: 'Arial-Black', sans-serif;
+    font-size: 90px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 50px 20px 10px;
+    justify-content: center;
+}
+
+.artist-desc {
+    margin: 20px 170px;
+    font-family: 'Arial-Black', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    text-align: left;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+}
+
+.wrap-btn-mix {
+    display: flex;
+    justify-content: left;
+    margin: 50px 150px;
+}
+
+.artis-page-btn {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    border: none;
+    background-color: #4e2f72;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+    margin: 20px;
+}
+
+.artis-page-btn:hover {
+    background-color: #956ebb;
+}
