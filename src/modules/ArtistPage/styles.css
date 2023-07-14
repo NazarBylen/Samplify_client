@@ -68,3 +68,16 @@
 .artis-page-btn:hover {
     background-color: #956ebb;
 }
+
+.player-parent {
+    background-color: #956ebb;
+    opacity: 0.4;
+    border-radius: 10px;
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    margin: 20px 180px;
+    gap: 20px;
+    width: 300px;
+    flex-wrap: wrap;
+}

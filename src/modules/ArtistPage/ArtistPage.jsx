@@ -25,9 +25,11 @@ const ArtistPage = () => {
     }
 
     function stop() {
-        sound.pause();
-        sound.currentTime=0;
-        sound=undefined;
+        if(sound!==undefined) {
+            sound.pause();
+            sound.currentTime=0;
+            sound=undefined;
+        }
     }
 
     useEffect(() => {
@@ -49,6 +51,12 @@ const ArtistPage = () => {
             <div className="container wrap-btn-mix">
                 <button onClick={play} className="artis-page-btn">MIX MUSIC</button>
                 <button onClick={stop} className="artis-page-btn">STOP MUSIC</button>
+            </div>
+            <div className="player-parent">
+                {currentSongs.map((song, index) => {
+                    return <audio key={index} controls ><source key={index} src={song.toString()} /></audio>
+                })
+                }
             </div>
             <p className="artist-desc">{currentArtist.desc}</p>
         </div>
