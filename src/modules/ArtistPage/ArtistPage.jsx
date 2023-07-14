@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 
 import ArtistCardData from "../Home/ArtistCardData";
 import "./styles.css"
+import {useEffect} from "react";
 
 
 const ArtistPage = () => {
@@ -17,8 +18,10 @@ const ArtistPage = () => {
     let sound=undefined;
 
     function play() {
-        sound = new Audio(currentSongs[(Math.floor(Math.random() * currentSongs.length))].toString());
-        sound.play();
+        if(sound===undefined) {
+            sound = new Audio(currentSongs[(Math.floor(Math.random() * currentSongs.length))].toString());
+            sound.play();
+        }
     }
 
     function stop() {
@@ -27,6 +30,15 @@ const ArtistPage = () => {
         sound=undefined;
     }
 
+    useEffect(() => {
+        return () => {
+            if (sound!==undefined) {
+                sound.pause();
+                sound.currentTime=0;
+            }
+
+        };
+    }, [sound]);
 
     return (
         <div className="container-fluid artist-page-root">
