@@ -6,7 +6,6 @@ import TebeNema from "../../assets/clownex/TebeNema.mp3"
 import Кіно from "../../assets/antydila/Кіно.mp3"
 import Марафон from "../../assets/antydila/Марафон.mp3"
 import Маскарад from "../../assets/antydila/Маскарад.mp3"
-import DAMM from "../../assets/realboy38/DAMM.mp3"
 import JASMINE from "../../assets/realboy38/JASMINE.mp3"
 import VITER from "../../assets/realboy38/VITER.mp3"
 import ВОНА from "../../assets/sraichu/ВОНА.mp3"
@@ -51,7 +50,7 @@ const ArtistCardData = [
         img: "https://p16-sg.tiktokcdn.com/aweme/200x200/tos-alisg-v-2774/71c7abdc06da414ea6e1ec93891963ea.jpeg",
         desc: "Набираючий популярність, юний артист зі Львову, який скоро презентуватиме свій довгоочікуваний" +
             "альбом 'ненависть та любов'. Періодично дає концерти та виступає на публіку.",
-        songs: [DAMM, VITER, JASMINE],
+        songs: [VITER, JASMINE],
     },
     {
         id: 5,
