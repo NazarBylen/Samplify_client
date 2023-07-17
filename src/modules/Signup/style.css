@@ -1,0 +1,38 @@
+.back-signup {
+    min-height: 100vh;
+    height: auto;
+    background: linear-gradient(#3e065f, #000000);
+    padding: 100px;
+}
+
+.signup {
+    border-radius: 15px;
+    width: 300px;
+    top: 150px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #431377;
+    text-align: center;
+    color: white;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #d540d2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
