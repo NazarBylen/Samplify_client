@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 
 import "./style.css"
 import {http} from '../../http'
+import {useState} from "react";
 
 const Signup = () => {
     const {
@@ -9,12 +10,21 @@ const Signup = () => {
         handleSubmit,
     } = useForm()
 
+    const [backendError, setBackendError] = useState(null)
+    const [backendSuccess, setBackendSuccess] = useState(null)
+
     const onSubmit = async (data) => {
 
         await http
             .post('/auth/sign-up', data )
-            .then(response => console.log(response.status, response.data))
-            .catch(err => console.log(err))
+            .then(response => {
+                setBackendSuccess("Success")
+                setBackendError(null)
+            })
+            .catch(err => {
+                setBackendError(err.response.data.message);
+                setBackendSuccess(null)
+            })
     }
 
 
@@ -32,6 +42,8 @@ const Signup = () => {
 
                     <button className="artis-page-btn" type="submit">Submit</button>
                 </form>
+                <div className="backendError">{backendError?backendError:null}</div>
+                <div className="backendSuccess">{backendSuccess?backendSuccess:null}</div>
             </div>
         </div>
     )

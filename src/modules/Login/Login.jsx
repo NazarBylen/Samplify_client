@@ -2,12 +2,16 @@ import { useForm } from "react-hook-form"
 
 import "./style.css"
 import {http} from '../../http'
+import {useState} from "react";
 
 const Login = () => {
     const {
         register,
         handleSubmit,
     } = useForm()
+
+    const [backendError, setBackendError] = useState(null)
+    const [backendSuccess, setBackendSuccess] = useState(null)
 
     const onSubmit = async (data) => {
 
@@ -16,8 +20,13 @@ const Login = () => {
             .then(response => {
                 localStorage.setItem("access-token",JSON.stringify(response.data.accessToken))
                 localStorage.setItem("refresh-token",JSON.stringify(response.data.refreshToken))
+                setBackendSuccess("Success")
+                setBackendError(null)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setBackendError(err.response.data.message);
+                setBackendSuccess(null)
+            })
     }
 
     return (
@@ -33,6 +42,8 @@ const Login = () => {
 
                     <button className="artis-page-btn" type="submit">Login</button>
                 </form>
+                <div className="backendError">{backendError?backendError:null}</div>
+                <div className="backendSuccess">{backendSuccess?backendSuccess:null}</div>
             </div>
         </div>
     )

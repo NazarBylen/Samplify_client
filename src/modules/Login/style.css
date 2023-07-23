@@ -36,3 +36,13 @@ input[type="submit"] {
     border: none;
     cursor: pointer;
 }
+
+.backendError {
+    color:red;
+    font-size: 12px;
+}
+
+.backendSuccess {
+    color:green;
+    font-weight: bold;
+}
