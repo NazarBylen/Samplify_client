@@ -41,7 +41,7 @@ const ArtistPage = () => {
         return () => {
             stop();
         };
-    }, []);;
+    }, []);
 
     useEffect(() => {
         http.get(`artists/${slug}`)
