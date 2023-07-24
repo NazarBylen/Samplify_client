@@ -1,25 +1,25 @@
 import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 
-import ArtistCardData from "../Home/ArtistCardData";
 import "./styles.css"
-import {useEffect} from "react";
+import {http} from "../../http"
 
+const imagePath = "http://localhost:5000/images/artists"
+const songsPath = "http://localhost:5000/music"
 
 const ArtistPage = () => {
 
-    const {id} = useParams();
+    const {slug} = useParams();
 
-    const [currentArtist] = ArtistCardData.filter(card => {
-        return id===card.id.toString();
-    })
+    const [currentArtist, setCurrentArtist] = useState(null)
 
-    const currentSongs = currentArtist.songs
-
-    let sound=undefined;
+    let sound = undefined;
 
     function play() {
         if(sound===undefined) {
-            sound = new Audio(currentSongs[(Math.floor(Math.random() * currentSongs.length))].toString());
+            const tempSong = currentArtist.songs[(Math.floor(Math.random() * currentArtist.songs.length))];
+            const songPath = `${songsPath}/${currentArtist.slug}/${tempSong.file}`
+            sound = new Audio(songPath);
             sound.play();
         }
     }
@@ -34,18 +34,28 @@ const ArtistPage = () => {
 
     useEffect(() => {
         return () => {
-            if (sound!==undefined) {
+            if (sound !== undefined) {
                 sound.pause();
-                sound.currentTime=0;
+                sound.currentTime = 0;
             }
 
         };
     }, [sound]);
 
-    return (
+    useEffect(() => {
+        http.get(`artists/${slug}`)
+            .then((res) => {
+                setCurrentArtist(res.data[0])
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+
+    return currentArtist ? (
         <div className="container-fluid artist-page-root">
             <div className="container artist-profile">
-                <img src={currentArtist.img} alt="Artist" className="artist-picture"/>
+                <img src={`${imagePath}/${currentArtist.image}`} alt="Artist" className="artist-picture"/>
                 <h1 className="artist-name">{currentArtist.name}</h1>
             </div>
             <div className="container wrap-btn-mix">
@@ -53,14 +63,22 @@ const ArtistPage = () => {
                 <button onClick={stop} className="artis-page-btn">STOP MUSIC</button>
             </div>
             <div className="player-parent">
-                {currentSongs.map((song, index) => {
-                    return <audio key={index} controls ><source key={index} src={song.toString()} /></audio>
+                {currentArtist.songs.map((song, index) => {
+                    return (
+                        <audio
+                            key={index} controls>
+                            <source
+                                key={index}
+                                src={`${songsPath}/${currentArtist.slug}/${song.file}`}
+                            />
+                        </audio>
+                    )
                 })
                 }
             </div>
-            <p className="artist-desc">{currentArtist.desc}</p>
+            <p className="artist-desc">{currentArtist.description}</p>
         </div>
-    )
+    ) : null
 }
 
 export default ArtistPage;

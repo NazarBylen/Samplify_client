@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 import "./style.css"
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
-import ArtistCardData from "./ArtistCardData";
-import {useNavigate} from "react-router-dom";
+import {http} from "../../http"
 
 const Home = () => {
+    const [artists, setArtists] = useState([]);
+
+
     const navigate=useNavigate();
 
     const login = () => {
@@ -16,6 +19,16 @@ const Home = () => {
         navigate("/signup")
     }
 
+    useEffect(()=>{
+        http.get('/artists')
+            .then((res)=>{
+                setArtists(res.data)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+
     return (
         <div className="container-fluid home-root">
             <div className="container">
@@ -23,8 +36,8 @@ const Home = () => {
                 <p className="row promo-text">Listen to your favourite music right now!</p>
                 <p className="row charts">Top Artists In Ukraine!</p>
                 <div className="row promo-music">
-                    {ArtistCardData.map(card => {
-                        return <ArtistCard key={card.id} id={card.id} name={card.name} img={card.img} link={card.link}/>
+                    {artists.map(card => {
+                        return <ArtistCard key={card.id} {...card} />
                     })}
                 </div>
                 <button onClick={login} className="artis-page-btn">LOGIN</button>
