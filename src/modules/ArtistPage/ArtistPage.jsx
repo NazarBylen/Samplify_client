@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import "./styles.css"
 import {http} from "../../http"
@@ -13,34 +13,35 @@ const ArtistPage = () => {
 
     const [currentArtist, setCurrentArtist] = useState(null)
 
-    let sound = undefined;
+    const soundRef = useRef(null);
 
     function play() {
-        if(sound===undefined) {
-            const tempSong = currentArtist.songs[(Math.floor(Math.random() * currentArtist.songs.length))];
-            const songPath = `${songsPath}/${currentArtist.slug}/${tempSong.file}`
-            sound = new Audio(songPath);
-            sound.play();
+        if (soundRef.current === null) {
+            const tempSong = currentArtist.songs[Math.floor(Math.random() * currentArtist.songs.length)];
+            const songPath = `${songsPath}/${currentArtist.slug}/${tempSong.file}`;
+            const audio = new Audio(songPath);
+            audio.play();
+            audio.addEventListener('ended', stop);
+            soundRef.current = audio;
         }
     }
 
     function stop() {
-        if(sound!==undefined) {
+        const sound = soundRef.current;
+        if (sound !== null) {
             sound.pause();
-            sound.currentTime=0;
-            sound=undefined;
+            sound.currentTime = 0;
+            sound.removeEventListener('ended', stop);
+            soundRef.current = null;
         }
     }
 
+
     useEffect(() => {
         return () => {
-            if (sound !== undefined) {
-                sound.pause();
-                sound.currentTime = 0;
-            }
-
+            stop();
         };
-    }, [sound]);
+    }, []);;
 
     useEffect(() => {
         http.get(`artists/${slug}`)
