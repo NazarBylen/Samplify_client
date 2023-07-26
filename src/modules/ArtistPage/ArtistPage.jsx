@@ -36,6 +36,18 @@ const ArtistPage = () => {
         }
     }
 
+    function addToFavourites(songId) {
+
+        const userId = localStorage.getItem("userId")
+
+        const data = {
+            songId,
+            userId
+        }
+
+        http.post("/favourites/addFavourite", data)
+    }
+
 
     useEffect(() => {
         return () => {
@@ -66,13 +78,16 @@ const ArtistPage = () => {
             <div className="player-parent">
                 {currentArtist.songs.map((song, index) => {
                     return (
-                        <audio
-                            key={index} controls>
-                            <source
-                                key={index}
-                                src={`${songsPath}/${currentArtist.slug}/${song.file}`}
-                            />
-                        </audio>
+                        <div className="row player" key={index}>
+                            <div className="col song-name" >{song.name}</div>
+                            <audio className="col"
+                                key={index} controls>
+                                <source
+                                    src={`${songsPath}/${currentArtist.slug}/${song.file}`}
+                                />
+                            </audio>
+                            <button className="col favourites-btn" onClick={() => addToFavourites(song.id)}>Add To Favourites</button>
+                        </div>
                     )
                 })
                 }

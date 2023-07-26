@@ -20,6 +20,7 @@ const Login = () => {
             .then(response => {
                 localStorage.setItem("access-token",JSON.stringify(response.data.accessToken))
                 localStorage.setItem("refresh-token",JSON.stringify(response.data.refreshToken))
+                localStorage.setItem("userId",JSON.stringify(response.data.id))
                 setBackendSuccess("Success")
                 setBackendError(null)
             })

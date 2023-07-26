@@ -70,14 +70,50 @@
 }
 
 .player-parent {
-    background-color: #956ebb;
-    opacity: 0.4;
+    background-color: rgba(159, 84, 232, 0.2);
     border-radius: 10px;
     display: flex;
     justify-content: left;
     flex-direction: column;
-    margin: 20px 180px;
     gap: 20px;
-    width: 300px;
-    flex-wrap: wrap;
+    margin: 20px 150px;
+}
+
+.player {
+    background-color: #501a7a;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 0 15px;
+    gap: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.player:hover {
+    background-color: #3f0e60;
+}
+
+.song-name {
+    font-family: 'Arial-Black', sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.favourites-btn {
+    font-size: 15px;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    border: none;
+    background-color: #4e2f72;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+    max-width: 200px;
+}
+
+.favourites-btn:hover {
+    background-color: #956ebb;
 }

@@ -4,6 +4,12 @@
   background: linear-gradient(#3e065f, #000000);
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .company-name {
   font-family: 'Arial-Black', sans-serif;
   font-size: 90px;

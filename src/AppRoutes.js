@@ -5,6 +5,7 @@ import Home from "./modules/Home/Home"
 import ArtistPage from "./modules/ArtistPage/ArtistPage";
 import Login from "./modules/Login/Login";
 import Signup from "./modules/Signup/Signup";
+import Favourite from "./modules/Favourite/Favourite"
 
 const AppRoutes = () => {
     return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
             <Route path="/artist-page/:slug" element={<ArtistPage/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signup" element={<Signup/>}/>
+            <Route path="/favourite" element={<Favourite/>}/>
         </Routes>
     )
 }
