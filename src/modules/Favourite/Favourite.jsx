@@ -13,7 +13,7 @@ const Favourite = () => {
     useEffect(()=>{
         const userId = localStorage.getItem("userId")
 
-        http.get(`/favourites/getFavourite/${userId}`)
+        http.get(`/favourites/${userId}`)
             .then((res)=>{
                 setFavouriteList(res.data)
             })

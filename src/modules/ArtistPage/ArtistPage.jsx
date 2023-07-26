@@ -45,7 +45,7 @@ const ArtistPage = () => {
             userId
         }
 
-        http.post("/favourites/addFavourite", data)
+        http.post("/favourites", data)
     }
 
 

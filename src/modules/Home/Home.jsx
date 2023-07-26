@@ -21,7 +21,7 @@ const Home = () => {
     }
 
     const navigateToFavourite = ()=> {
-        navigate("/favourite")
+        navigate("/favourites")
     }
 
     useEffect(()=>{
