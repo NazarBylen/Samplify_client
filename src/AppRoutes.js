@@ -14,7 +14,7 @@ const AppRoutes = () => {
             <Route path="/artist-page/:slug" element={<ArtistPage/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signup" element={<Signup/>}/>
-            <Route path="/favourite" element={<Favourite/>}/>
+            <Route path="/favourites" element={<Favourite/>}/>
         </Routes>
     )
 }
