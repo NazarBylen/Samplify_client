@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 import "./style.css"
 import ArtistCard from "../../components/ArtistCard/ArtistCard";
-import {http} from "../../http"
+import {GetAllArtists} from "../../api/artists"
 
 const Home = () => {
     const [artists, setArtists] = useState([]);
@@ -20,12 +20,17 @@ const Home = () => {
         navigate("/signup")
     }
 
+    const logout = () => {
+        localStorage.clear()
+        setUserAccessToken(null);
+    }
+
     const navigateToFavourite = ()=> {
         navigate("/favourites")
     }
 
     useEffect(()=>{
-        http.get('/artists')
+        GetAllArtists()
             .then((res)=>{
                 setArtists(res.data)
             })
@@ -51,6 +56,7 @@ const Home = () => {
                         <button onClick={signup} className="artis-page-btn">SIGN UP</button>
                     </div> :
                     <div>
+                        <button onClick={logout} className="artis-page-btn">LOG OUT</button>
                         <p className="row promo-text">Welcome, Mr. Smith</p>
                         <button className="artis-page-btn" onClick={navigateToFavourite}>Favourite Songs</button>
                     </div>

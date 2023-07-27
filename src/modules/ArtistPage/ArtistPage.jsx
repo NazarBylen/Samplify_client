@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 
 import "./styles.css"
 import {http} from "../../http"
+import {AddToFavourites} from "../../api/favourites"
 
 const imagePath = "http://localhost:5000/images/artists"
 const songsPath = "http://localhost:5000/music"
@@ -36,7 +37,7 @@ const ArtistPage = () => {
         }
     }
 
-    function addToFavourites(songId) {
+    async function addToFavourites(songId) {
 
         const userId = localStorage.getItem("userId")
 
@@ -44,8 +45,13 @@ const ArtistPage = () => {
             songId,
             userId
         }
-
-        http.post("/favourites", data)
+        AddToFavourites(data)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
 

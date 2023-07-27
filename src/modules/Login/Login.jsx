@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 
 import "./style.css"
-import {http} from '../../http'
+import {LogIn} from "../../api/auth"
 import {useState} from "react";
 
 const Login = () => {
@@ -13,10 +13,9 @@ const Login = () => {
     const [backendError, setBackendError] = useState(null)
     const [backendSuccess, setBackendSuccess] = useState(null)
 
-    const onSubmit = async (data) => {
+    const onSubmit = (data) => {
 
-        await http
-            .post('/auth/login', data )
+        LogIn(data)
             .then(response => {
                 localStorage.setItem("access-token",JSON.stringify(response.data.accessToken))
                 localStorage.setItem("refresh-token",JSON.stringify(response.data.refreshToken))

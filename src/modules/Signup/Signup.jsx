@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 
 import "./style.css"
-import {http} from '../../http'
+import {SignUp} from "../../api/auth"
 import {useState} from "react";
 
 const Signup = () => {
@@ -13,10 +13,9 @@ const Signup = () => {
     const [backendError, setBackendError] = useState(null)
     const [backendSuccess, setBackendSuccess] = useState(null)
 
-    const onSubmit = async (data) => {
+    const onSubmit = (data) => {
 
-        await http
-            .post('/auth/sign-up', data )
+        SignUp(data)
             .then(response => {
                 setBackendSuccess("Success")
                 setBackendError(null)

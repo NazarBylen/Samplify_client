@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {http} from "../../http"
+import {GetFavourites} from "../../api/favourites"
 import "./style.css"
 
 const songsPath = "http://localhost:5000/music"
@@ -13,7 +13,7 @@ const Favourite = () => {
     useEffect(()=>{
         const userId = localStorage.getItem("userId")
 
-        http.get(`/favourites/${userId}`)
+        GetFavourites(userId)
             .then((res)=>{
                 setFavouriteList(res.data)
             })
