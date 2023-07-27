@@ -2,8 +2,8 @@ import {useParams} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 
 import "./styles.css"
-import {http} from "../../http"
 import {AddToFavourites} from "../../api/favourites"
+import {GetArtistSongs} from "../../api/artists"
 
 const imagePath = "http://localhost:5000/images/artists"
 const songsPath = "http://localhost:5000/music"
@@ -62,7 +62,7 @@ const ArtistPage = () => {
     }, []);
 
     useEffect(() => {
-        http.get(`artists/${slug}`)
+        GetArtistSongs(slug)
             .then((res) => {
                 setCurrentArtist(res.data[0])
             })
