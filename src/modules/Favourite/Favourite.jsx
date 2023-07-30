@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {GetFavourites} from "../../api/favourites"
+import {GetFavourites, RemoveFavourite} from "../../api/favourites"
 import "./style.css"
 
 const songsPath = "http://localhost:5000/music"
@@ -8,6 +8,14 @@ const songsPath = "http://localhost:5000/music"
 const Favourite = () => {
 
     const [favouriteList, setFavouriteList] = useState([])
+
+    const deleteSong = (songId) => {
+        RemoveFavourite(songId)
+            .then((res)=>{
+                console.log(res);})
+            .catch((err)=>{
+                console.log(err);})
+    }
 
 
     useEffect(()=>{
@@ -20,7 +28,7 @@ const Favourite = () => {
             .catch((err)=>{
                 console.log(err);
             })
-    }, [])
+    }, [favouriteList])
 
     return (
         <div className="container-fluid favourite-root">
@@ -37,6 +45,7 @@ const Favourite = () => {
                                         src={`${songsPath}/${objectSong.song.artist.slug}/${objectSong.song.file}`}
                                     />
                                 </audio>
+                                <button onClick={()=>deleteSong(objectSong.id)} className="artis-page-btn">REMOVE FROM FAVOURITES</button>
                             </div>
                         )
                     })
