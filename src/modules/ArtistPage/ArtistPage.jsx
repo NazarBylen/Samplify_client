@@ -46,9 +46,7 @@ const ArtistPage = () => {
             userId
         }
         AddToFavourites(data)
-            .then((res) => {
-                console.log(res);
-            })
+            .then()
             .catch((err) => {
                 console.log(err);
             })

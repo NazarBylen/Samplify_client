@@ -11,8 +11,7 @@ const Favourite = () => {
 
     const deleteSong = (songId) => {
         RemoveFavourite(songId)
-            .then((res)=>{
-                console.log(res);})
+            .then()
             .catch((err)=>{
                 console.log(err);})
     }
