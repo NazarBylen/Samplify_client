@@ -20,35 +20,38 @@ const Profile = () => {
 
         GetUserInfo(userId)
             .then((res)=>{
-                setCurrentUser(res.data[0])
+                setCurrentUser(res.data)
             })
             .catch((err)=>{
                 console.log(err);
             })
     }, [])
 
-    return currentUser ? (
+    return (
         <div className="container-fluid profile-root">
             <div className="container">
                 <p className="row company-name">Profile Information</p>
-                <div className="row info">
-                    <div className="col-6 info-text">
-                        Id :
+                {currentUser ?
+                    <div className="row info">
+                        <div className="col-6 info-text">
+                            Id :
+                        </div>
+                        <div className="col-6">
+                            {currentUser.id}
+                        </div>
+                        <div className="col-6 info-text">
+                            Email :
+                        </div>
+                        <div className="col-6">
+                            {currentUser.email}
+                        </div>
+                        <button className="artis-page-btn" onClick={navigateToChangePassword}>Change Password</button>
                     </div>
-                    <div className="col-6">
-                        {currentUser.id}
-                    </div>
-                    <div className="col-6 info-text">
-                        Email :
-                    </div>
-                    <div className="col-6">
-                        {currentUser.email}
-                    </div>
-                    <button className="artis-page-btn" onClick={navigateToChangePassword}>Change Password</button>
-                </div>
+                        : null
+                }
             </div>
         </div>
-    ) : null
+    )
 }
 
 export default Profile;

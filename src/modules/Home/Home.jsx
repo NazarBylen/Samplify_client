@@ -23,6 +23,7 @@ const Home = () => {
     const logout = () => {
         localStorage.clear()
         setUserAccessToken(null);
+
     }
 
     const navigateToFavourite = ()=> {
