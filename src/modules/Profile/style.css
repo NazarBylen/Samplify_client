@@ -1,0 +1,19 @@
+.profile-root {
+    min-height: 100vh;
+    height: auto;
+    background: linear-gradient(#3e065f, #000000);
+}
+
+.info {
+    margin: 20px 170px;
+    font-family: 'Arial-Black', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    text-align: left;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+}

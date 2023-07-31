@@ -7,3 +7,11 @@ export const SignUp = (data)=> {
 export const LogIn = (data)=> {
     return http.post('/auth/login', data )
 }
+
+export const GetUserInfo = (id)=> {
+    return http.get(`/auth/${id}`)
+}
+
+export const ChangeUserPassword = (id, data)=> {
+    return http.patch(`/auth/change-password/${id}`, data)
+}

@@ -1,0 +1,16 @@
+.back-change {
+    min-height: 100vh;
+    height: auto;
+    background: linear-gradient(#3e065f, #000000);
+    padding: 100px;
+}
+
+.backendError {
+    color:red;
+    font-size: 12px;
+}
+
+.backendSuccess {
+    color:green;
+    font-weight: bold;
+}

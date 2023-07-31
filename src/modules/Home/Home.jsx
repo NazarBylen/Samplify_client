@@ -29,6 +29,10 @@ const Home = () => {
         navigate("/favourites")
     }
 
+    const navigateToProfile = ()=> {
+        navigate("/profile")
+    }
+
     useEffect(()=>{
         GetAllArtists()
             .then((res)=>{
@@ -59,6 +63,7 @@ const Home = () => {
                         <button onClick={logout} className="artis-page-btn">LOG OUT</button>
                         <p className="row promo-text">Welcome, Mr. Smith</p>
                         <button className="artis-page-btn" onClick={navigateToFavourite}>Favourite Songs</button>
+                        <button className="artis-page-btn" onClick={navigateToProfile}>My Profile</button>
                     </div>
                 }
                 <p className="row charts">Top Artists In Ukraine!</p>

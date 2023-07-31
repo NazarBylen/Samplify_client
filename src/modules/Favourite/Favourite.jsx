@@ -8,10 +8,13 @@ const songsPath = "http://localhost:5000/music"
 const Favourite = () => {
 
     const [favouriteList, setFavouriteList] = useState([])
+    const [removedId, setRemovedId] = useState(null)
 
     const deleteSong = (songId) => {
         RemoveFavourite(songId)
-            .then()
+            .then(()=>{
+                setRemovedId(songId)
+            })
             .catch((err)=>{
                 console.log(err);})
     }
@@ -27,7 +30,19 @@ const Favourite = () => {
             .catch((err)=>{
                 console.log(err);
             })
-    }, [favouriteList])
+    }, [])
+
+    useEffect(()=>{
+        const userId = localStorage.getItem("userId")
+
+        GetFavourites(userId)
+            .then((res)=>{
+                setFavouriteList(res.data)
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+    }, [removedId])
 
     return (
         <div className="container-fluid favourite-root">
