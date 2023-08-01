@@ -19,9 +19,7 @@ const Profile = () => {
         const userId = localStorage.getItem("userId")
 
         DeleteUser(userId)
-            .then((res)=>{
-                console.log(res.status);
-            })
+            .then()
             .catch((err)=>{
                 console.log(err);
             })
