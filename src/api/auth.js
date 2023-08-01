@@ -15,3 +15,7 @@ export const GetUserInfo = (id)=> {
 export const ChangeUserPassword = (id, data)=> {
     return http.patch(`/auth/change-password/${id}`, data)
 }
+
+export const DeleteUser = (id)=> {
+    return http.delete(`/auth/delete/${id}`)
+}

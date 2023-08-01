@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {GetUserInfo} from "../../api/auth";
 import {useNavigate} from "react-router-dom";
 
+import {DeleteUser} from "../../api/auth"
 import "./style.css"
 
 const Profile = () => {
@@ -12,6 +13,20 @@ const Profile = () => {
 
     const navigateToChangePassword = () => {
         navigate("/change-password")
+    }
+
+    const deleteUserAccount = () => {
+        const userId = localStorage.getItem("userId")
+
+        DeleteUser(userId)
+            .then((res)=>{
+                console.log(res.status);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        localStorage.clear()
+        navigate("/home")
     }
 
     useEffect(()=>{
@@ -46,6 +61,7 @@ const Profile = () => {
                             {currentUser.email}
                         </div>
                         <button className="artis-page-btn" onClick={navigateToChangePassword}>Change Password</button>
+                        <button className="artis-page-btn" onClick={deleteUserAccount}>DELETE ACCOUNT</button>
                     </div>
                         : null
                 }
