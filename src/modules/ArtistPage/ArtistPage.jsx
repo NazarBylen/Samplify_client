@@ -4,6 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import "./styles.css"
 import {AddToFavourites} from "../../api/favourites"
 import {GetArtistSongs} from "../../api/artists"
+import Paginator from "../../components/Paginator/Paginator"
 
 const imagePath = "http://localhost:5000/images/artists"
 const songsPath = "http://localhost:5000/music"
@@ -13,6 +14,9 @@ const ArtistPage = () => {
     const {slug} = useParams();
 
     const [currentArtist, setCurrentArtist] = useState(null)
+    const [songs, setSongs] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [songsPerPage] = useState(5)
 
     const soundRef = useRef(null);
 
@@ -52,6 +56,10 @@ const ArtistPage = () => {
             })
     }
 
+    const paginate = (number)=> {
+        setCurrentPage(number)
+    }
+
 
     useEffect(() => {
         return () => {
@@ -63,13 +71,17 @@ const ArtistPage = () => {
         GetArtistSongs(slug)
             .then((res) => {
                 setCurrentArtist(res.data[0])
+                setSongs(res.data[0].songs)
+
             })
             .catch((err) => {
                 console.log(err);
             })
     }, [])
 
-    return currentArtist ? (
+
+    return currentArtist ?
+        (
         <div className="container-fluid artist-page-root">
             <div className="container artist-profile">
                 <img src={`${imagePath}/${currentArtist.image}`} alt="Artist" className="artist-picture"/>
@@ -80,12 +92,14 @@ const ArtistPage = () => {
                 <button onClick={stop} className="artis-page-btn">STOP MUSIC</button>
             </div>
             <div className="player-parent">
-                {currentArtist.songs.map((song, index) => {
+                {songs
+                    .slice((currentPage * songsPerPage)- songsPerPage, currentPage * songsPerPage)
+                    .map((song, index) => {
                     return (
                         <div className="row player" key={index}>
                             <div className="col song-name" >{song.name}</div>
                             <audio className="col"
-                                key={index} controls>
+                                key={song.name} controls>
                                 <source
                                     src={`${songsPath}/${currentArtist.slug}/${song.file}`}
                                 />
@@ -96,6 +110,7 @@ const ArtistPage = () => {
                 })
                 }
             </div>
+            <Paginator songsPerPage={songsPerPage} totalSongs={songs.length} paginate={paginate} />
             <p className="artist-desc">{currentArtist.description}</p>
         </div>
     ) : null

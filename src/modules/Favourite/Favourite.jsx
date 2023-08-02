@@ -54,7 +54,7 @@ const Favourite = () => {
                             <div className="row player" key={index}>
                                 <div className="col song-name" >{objectSong.song.name}</div>
                                 <audio className="col"
-                                       key={index} controls>
+                                       key={objectSong.song.name} controls>
                                     <source
                                         src={`${songsPath}/${objectSong.song.artist.slug}/${objectSong.song.file}`}
                                     />
