@@ -5,6 +5,7 @@ import "./styles.css"
 import {AddToFavourites} from "../../api/favourites"
 import {GetArtistSongs} from "../../api/artists"
 import Paginator from "../../components/Paginator/Paginator"
+import {GetSongsFromArtist} from "../../api/songs";
 
 const imagePath = "http://localhost:5000/images/artists"
 const songsPath = "http://localhost:5000/music"
@@ -16,13 +17,13 @@ const ArtistPage = () => {
     const [currentArtist, setCurrentArtist] = useState(null)
     const [songs, setSongs] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [songsPerPage] = useState(5)
+    const [pagination, setPagination] = useState(null)
 
     const soundRef = useRef(null);
 
     function play() {
         if (soundRef.current === null) {
-            const tempSong = currentArtist.songs[Math.floor(Math.random() * currentArtist.songs.length)];
+            const tempSong = songs[Math.floor(Math.random() * songs.length)];
             const songPath = `${songsPath}/${currentArtist.slug}/${tempSong.file}`;
             const audio = new Audio(songPath);
             audio.play();
@@ -70,14 +71,29 @@ const ArtistPage = () => {
     useEffect(() => {
         GetArtistSongs(slug)
             .then((res) => {
-                setCurrentArtist(res.data[0])
-                setSongs(res.data[0].songs)
+                setCurrentArtist(res.data)
 
             })
             .catch((err) => {
                 console.log(err);
             })
     }, [])
+
+    useEffect(() => {
+        if (currentArtist) {
+            const artistId = currentArtist.id;
+
+            GetSongsFromArtist(artistId, currentPage)
+                .then((res) => {
+                    setSongs(res.data.data)
+                    setPagination(res.data.meta)
+
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }, [currentArtist, currentPage])
 
 
     return currentArtist ?
@@ -93,7 +109,6 @@ const ArtistPage = () => {
             </div>
             <div className="player-parent">
                 {songs
-                    .slice((currentPage * songsPerPage)- songsPerPage, currentPage * songsPerPage)
                     .map((song, index) => {
                     return (
                         <div className="row player" key={index}>
@@ -110,7 +125,7 @@ const ArtistPage = () => {
                 })
                 }
             </div>
-            <Paginator songsPerPage={songsPerPage} totalSongs={songs.length} paginate={paginate} />
+            {pagination? <Paginator pagination={pagination} paginate={paginate}/> : null}
             <p className="artist-desc">{currentArtist.description}</p>
         </div>
     ) : null

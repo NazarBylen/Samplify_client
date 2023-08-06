@@ -1,14 +1,13 @@
 import "./style.css"
 import {useState} from "react";
 
-const Paginator = ({songsPerPage, totalSongs, paginate}) => {
-    const pageNumbers = []
+const Paginator = ({pagination, paginate}) => {
+
+    console.log(pagination);
 
     const [currentPage, setCurrentPage] = useState(1)
 
-    for (let i = 1; i <= Math.ceil(totalSongs / songsPerPage); i++) {
-        pageNumbers.push(i);
-    }
+    const { pages } = pagination;
 
     const goToPage = (number) => {
         setCurrentPage(number)
@@ -16,8 +15,8 @@ const Paginator = ({songsPerPage, totalSongs, paginate}) => {
     }
 
     const goToLast = () => {
-        setCurrentPage(pageNumbers.length)
-        paginate(pageNumbers.length)
+        setCurrentPage(pages)
+        paginate(pages)
     }
 
     const goToFirst = () => {
@@ -33,7 +32,7 @@ const Paginator = ({songsPerPage, totalSongs, paginate}) => {
     }
 
     const goToNext = () => {
-        if(currentPage<pageNumbers.length){
+        if(currentPage<pages){
             paginate(currentPage+1)
             setCurrentPage(currentPage+1)
         }
@@ -44,7 +43,7 @@ const Paginator = ({songsPerPage, totalSongs, paginate}) => {
             <button onClick={goToFirst} className="page-btn">FIRST</button>
             <button onClick={goToPrevious} className="page-btn">PREV</button>
             <ul className="pagination">
-                {pageNumbers.map(number => {
+                {Array.from(Array(pages),(x,i)=>i+1).map(number => {
                     return (
                         <li key={number} className="page-item">
                             <button onClick={()=>goToPage(number)} className="page-btn">{number}</button>
