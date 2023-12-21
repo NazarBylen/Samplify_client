@@ -87,7 +87,6 @@ const ArtistPage = () => {
                 .then((res) => {
                     setSongs(res.data.data)
                     setPagination(res.data.meta)
-
                 })
                 .catch((err) => {
                     console.log(err);
@@ -110,7 +109,7 @@ const ArtistPage = () => {
             <div className="player-parent">
                 {songs
                     .map((song, index) => {
-                    return (
+                        return (
                         <div className="row player" key={index}>
                             <div className="col song-name" >{song.name}</div>
                             <audio className="col"
