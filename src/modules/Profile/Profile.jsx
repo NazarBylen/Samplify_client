@@ -33,7 +33,7 @@ const Profile = () => {
 
         GetUserInfo(userId)
             .then((res)=>{
-                setCurrentUser(res.data)
+                setCurrentUser(res.data.currentUser)
             })
             .catch((err)=>{
                 console.log(err);
