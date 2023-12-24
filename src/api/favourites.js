@@ -9,5 +9,5 @@ export const GetFavourites = (userId)=> {
 }
 
 export const RemoveFavourite = (songId)=> {
-    return http.delete(`/favourites/${songId}`)
+    return http.delete(`/favourites/${songId}`, songId)
 }

@@ -47,8 +47,8 @@ const ArtistPage = () => {
         const userId = localStorage.getItem("userId")
 
         const data = {
+            userId,
             songId,
-            userId
         }
         AddToFavourites(data)
             .then()
