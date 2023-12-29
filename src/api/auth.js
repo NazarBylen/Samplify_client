@@ -19,3 +19,7 @@ export const ChangeUserPassword = (id, data)=> {
 export const DeleteUser = (id)=> {
     return http.delete(`/auth/delete/${id}`)
 }
+
+export const checkRefreshToken = (id, data)=> {
+    return http.post(`/auth/refresh/${id}`, data)
+}
