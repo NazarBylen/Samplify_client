@@ -5,7 +5,7 @@ export const SignUp = (data)=> {
 }
 
 export const LogIn = (data)=> {
-    return http.post('/auth/login', data )
+    return http.post('/auth/login', data)
 }
 
 export const GetUserInfo = (id)=> {
@@ -18,8 +18,4 @@ export const ChangeUserPassword = (id, data)=> {
 
 export const DeleteUser = (id)=> {
     return http.delete(`/auth/delete/${id}`)
-}
-
-export const checkRefreshToken = (id, data)=> {
-    return http.post(`/auth/refresh/${id}`, data)
 }

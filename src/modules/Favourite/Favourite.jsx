@@ -1,101 +1,75 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
-import {GetFavourites, RemoveFavourite} from "../../api/favourites"
-import { checkRefreshToken } from "../../api/auth"
+import { getFavourites, RemoveFavourite } from "../../api/favourites"
 import "./style.css"
 
 const songsPath = "http://localhost:5000/music"
 
 const Favourite = () => {
 
-    const [favouriteList, setFavouriteList] = useState([])
-    const [removedId, setRemovedId] = useState(null)
-    const [userExists, setUserExists] = useState(false)
-    const [backendError, setBackendError] = useState(null)
+  const [favouriteList, setFavouriteList] = useState([])
+  const [removedId, setRemovedId] = useState(null)
 
-    const userId = localStorage.getItem("userId");
+  const deleteSong = (songId) => {
 
-    const deleteSong = (songId) => {
+    RemoveFavourite(songId)
+      .then(() => {
+        setRemovedId(songId)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
-        RemoveFavourite(songId)
-            .then(()=>{
-                setRemovedId(songId)
-            })
-            .catch((err)=>{
-                console.log(err);})
+  useEffect(() => {
+    if (removedId) {
+
+      getFavourites()
+        .then((res) => {
+          setFavouriteList(res.data)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }
+  }, [removedId])
 
+  useEffect(() => {
 
-    useEffect(()=>{
-        const userId = localStorage.getItem("userId")
+    getFavourites()
+      .then((res) => {
+        setFavouriteList(res.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [])
 
-        GetFavourites(userId)
-            .then((res)=>{
-                setFavouriteList(res.data)
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-    }, [])
-
-    useEffect(()=>{
-        const userId = localStorage.getItem("userId")
-
-        GetFavourites(userId)
-            .then((res)=>{
-                setFavouriteList(res.data)
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-    }, [removedId])
-
-    useEffect(()=>{
-      // localStorage.setItem("refresh-token", JSON.stringify("gdfgsgfd"))
-
-      const refreshToken = {
-          "refresh-token": JSON.parse(localStorage.getItem("refresh-token"))
-      };
-
-      checkRefreshToken(userId, refreshToken)
-          .then((res)=>{
-            setUserExists(true)
+  return (
+    <div className="container-fluid favourite-root">
+      <div className="container">
+        <p className="row company-name">Your Favourite Songs</p>
+        <div className="player-parent">
+          {favouriteList.map((objectSong, index) => {
+            return (
+              <div className="row player" key={index}>
+                <div className="col song-name">{objectSong.song.name}</div>
+                <audio className="col"
+                       key={objectSong.song.name} controls>
+                  <source
+                    src={`${songsPath}/${objectSong.song.artist.slug}/${objectSong.song.file}`}
+                  />
+                </audio>
+                <button onClick={() => deleteSong(objectSong.id)} className="artis-page-btn">REMOVE FROM FAVOURITES
+                </button>
+              </div>
+            )
           })
-          .catch (err => {
-            setUserExists(false)
-            setBackendError(err.message)
-          })
-    }, [userId])
-
-    return (
-        <div className="container-fluid favourite-root">
-            <div className="container">
-                { userExists && backendError===null ?
-                  <>
-                      <p className="row company-name">Your Favourite Songs</p>
-                      <div className="player-parent">
-                          {favouriteList.map((objectSong, index) => {
-                              return (
-                                <div className="row player" key={index}>
-                                    <div className="col song-name" >{objectSong.song.name}</div>
-                                    <audio className="col"
-                                           key={objectSong.song.name} controls>
-                                        <source
-                                          src={`${songsPath}/${objectSong.song.artist.slug}/${objectSong.song.file}`}
-                                        />
-                                    </audio>
-                                    <button onClick={()=>deleteSong(objectSong.id)} className="artis-page-btn">REMOVE FROM FAVOURITES</button>
-                                </div>
-                              )
-                          })
-                          }
-                      </div>
-                  </>
-                  :
-                  backendError===null? null : <p className="row company-name">{backendError}</p>}
-            </div>
+          }
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default Favourite;

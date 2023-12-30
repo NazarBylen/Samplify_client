@@ -14,8 +14,8 @@ const Login = () => {
     const [backendSuccess, setBackendSuccess] = useState(null)
 
     const onSubmit = (data) => {
-
-        LogIn(data)
+      console.log(data);
+      LogIn(data)
             .then(response => {
                 localStorage.setItem("access-token",JSON.stringify(response.data.accessToken))
                 localStorage.setItem("refresh-token",JSON.stringify(response.data.refreshToken))

@@ -1,11 +1,15 @@
-import {http} from "../http";
+import {http, httpUtils} from "../http";
 
 export const AddToFavourites = (data) => {
     return http.post("/favourites", data)
 }
 
-export const GetFavourites = (userId)=> {
-    return http.get(`/favourites/${userId}`)
+export const getFavourites = () => {
+    return http.get(`/favourites`, {
+        headers: {
+            ...httpUtils.getAuthorizationHeaders()
+        }
+    })
 }
 
 export const RemoveFavourite = (songId)=> {
