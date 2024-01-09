@@ -29,7 +29,7 @@ const Favourite = () => {
           setFavouriteList(res.data)
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         })
     }
   }, [removedId])
@@ -41,7 +41,7 @@ const Favourite = () => {
         setFavouriteList(res.data)
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       })
   }, [])
 
