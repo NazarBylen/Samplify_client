@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { refreshToken } from "../api/auth";
-export * as httpUtils from "./httpUtils"
+import * as httpUtils from "./httpUtils"
 
 export const http = axios.create({
     baseURL: 'http://localhost:5000/api'
@@ -20,7 +20,11 @@ let isRefreshing = false;
 http.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response && error.response.status === 401) {
+    const { response, request } = error;
+    const { responseURL } = request
+    const {pathname: responseUrlPathname} = new URL(responseURL)
+
+    if (response && response.status === 401 && !httpUtils.excludedPaths.includes(responseUrlPathname)) {
       const originalRequest = error.config;
       originalRequest._retry = false;
 
@@ -43,5 +47,13 @@ http.interceptors.response.use(
       }
       return Promise.reject(error);
     }
+    if (response && response.status === 401 && httpUtils.excludedPaths.includes(responseUrlPathname)) {
+      localStorage.removeItem("userId")
+      localStorage.removeItem("access-token")
+      localStorage.removeItem("refresh-token")
+      window.location.replace("/login");
+    }
   }
 );
+
+export {httpUtils}

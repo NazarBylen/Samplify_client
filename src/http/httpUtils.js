@@ -15,3 +15,5 @@ export const getAuthorizationHeaders = () => {
     Authorization: `Bearer ${getAccessToken()}`
   }
 }
+
+export const excludedPaths = ["/api/auth/refresh-token"]
