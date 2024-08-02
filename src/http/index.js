@@ -53,6 +53,7 @@ http.interceptors.response.use(
       localStorage.removeItem("refresh-token")
       window.location.replace("/login");
     }
+    return Promise.reject(error);
   }
 );
 

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import "./style.css"
 import {LogIn} from "../../api/auth"
 import {useState} from "react";
+import axios from "axios";
 
 const Login = () => {
     const {
@@ -17,6 +18,7 @@ const Login = () => {
       console.log(data);
       LogIn(data)
             .then(response => {
+                console.log(response);
                 localStorage.setItem("access-token",JSON.stringify(response.data.accessToken))
                 localStorage.setItem("refresh-token",JSON.stringify(response.data.refreshToken))
                 localStorage.setItem("userId",JSON.stringify(response.data.id))
@@ -24,6 +26,7 @@ const Login = () => {
                 setBackendError(null)
             })
             .catch(err => {
+                console.log(err);
                 setBackendError(err.response.data.message);
                 setBackendSuccess(null)
             })
